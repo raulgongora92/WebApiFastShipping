@@ -1,0 +1,6 @@
+@WebApiFastShipping_HostAddress = http://localhost:5219
+
+GET {{WebApiFastShipping_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
