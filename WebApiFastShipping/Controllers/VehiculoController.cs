@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApiFastShipping.Context;
-using WebApiFastShipping.Models;
+using Dominio.Entities;
 
 namespace WebApiFastShipping.Controllers
 {
