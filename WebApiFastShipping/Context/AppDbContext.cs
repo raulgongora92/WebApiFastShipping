@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using WebApiFastShipping.Models;
+using Dominio.Entities;
 
 namespace WebApiFastShipping.Context
 {

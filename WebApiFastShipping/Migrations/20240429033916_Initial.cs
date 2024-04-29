@@ -17,11 +17,11 @@ namespace WebApiFastShipping.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Documento = table.Column<int>(type: "int", nullable: false),
                     Nombres = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Apellidos = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LicenTrans = table.Column<int>(type: "int", nullable: false),
-                    FechaNacim = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    LicenciaTransito = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FechaNacimiento = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FechaRegistro = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -35,17 +35,15 @@ namespace WebApiFastShipping.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    productos = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    dirrec = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IdProductos = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Dirrec = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     direnvio = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    estadopedido = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Estado = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Pedidos", x => x.Id);
                 });
-
-           
 
             migrationBuilder.CreateTable(
                 name: "Productos",
@@ -53,11 +51,12 @@ namespace WebApiFastShipping.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CodigoP = table.Column<int>(type: "int", nullable: false),
+                    Codigo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Marca = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Categoria = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Estado = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Estado = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FechaRegistro = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {

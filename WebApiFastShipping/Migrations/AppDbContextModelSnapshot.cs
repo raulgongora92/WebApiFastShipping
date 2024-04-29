@@ -22,7 +22,7 @@ namespace WebApiFastShipping.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("WebApiFastShipping.Models.Conductor", b =>
+            modelBuilder.Entity("Dominio.Entities.Conductor", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -34,14 +34,15 @@ namespace WebApiFastShipping.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Documento")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("FechaNacim")
+                    b.Property<DateTime>("FechaNacimiento")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("LicenTrans")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("FechaRegistro")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LicenciaTransito")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nombres")
                         .IsRequired()
@@ -52,7 +53,7 @@ namespace WebApiFastShipping.Migrations
                     b.ToTable("Conductors");
                 });
 
-            modelBuilder.Entity("WebApiFastShipping.Models.Pedido", b =>
+            modelBuilder.Entity("Dominio.Entities.Pedido", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -64,29 +65,28 @@ namespace WebApiFastShipping.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Dirrec")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Estado")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IdProductos")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("direnvio")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("dirrec")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("estadopedido")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("productos")
-                        .IsRequired()
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.ToTable("Pedidos");
                 });
-     
 
-            modelBuilder.Entity("WebApiFastShipping.Models.Producto", b =>
+            modelBuilder.Entity("Dominio.Entities.Producto", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -98,8 +98,9 @@ namespace WebApiFastShipping.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("CodigoP")
-                        .HasColumnType("int");
+                    b.Property<string>("Codigo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Descripcion")
                         .IsRequired()
@@ -108,6 +109,9 @@ namespace WebApiFastShipping.Migrations
                     b.Property<string>("Estado")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("FechaRegistro")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Marca")
                         .IsRequired()
@@ -118,13 +122,16 @@ namespace WebApiFastShipping.Migrations
                     b.ToTable("Productos");
                 });
 
-            modelBuilder.Entity("WebApiFastShipping.Models.Vehiculo", b =>
+            modelBuilder.Entity("Dominio.Entities.Vehiculo", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Conductor")
+                        .HasColumnType("int");
 
                     b.Property<string>("Marca")
                         .IsRequired()
@@ -137,10 +144,6 @@ namespace WebApiFastShipping.Migrations
                     b.Property<string>("Placa")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Conductor")
-                        .IsRequired()
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

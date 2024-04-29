@@ -6,7 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApiFastShipping.Context;
-using WebApiFastShipping.Models;
+using Dominio.Entities;
+using Dominio.Dtos;
 
 namespace WebApiFastShipping.Controllers
 {
@@ -76,16 +77,51 @@ namespace WebApiFastShipping.Controllers
         // POST: api/Producto
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Producto>> PostProducto(Producto producto)
+        /*public async Task<ActionResult<Producto>> PostProducto(Producto producto)
         {
             _context.Productos.Add(producto);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetProducto", new { id = producto.Id }, producto);
-        }
+        }*/
 
-        // DELETE: api/Producto/5
-        [HttpDelete("{id}")]
+        public ActionResult Crear([FromBody] CrearProductoDto crearProductoDto)
+        {
+
+            Producto producto = new Producto();
+
+            //Mapeo Manual
+
+            //Dto - Entidad
+            producto.Descripcion = crearProductoDto.Descripcion;
+            producto.Categoria = crearProductoDto.Categoria;
+            producto.Marca = crearProductoDto.Marca;
+
+            producto.Estado = "Registrado";
+            producto.FechaRegistro = DateTime.Now;
+            producto.Codigo = producto.Categoria.Substring(0, 1) + new Random().NextInt64(1, 10000);
+            _context.Productos.Add(producto);
+            _context.SaveChanges();
+
+            //Entidad - Dto
+            ProductoCreadoDto productoCreadoDto = new ProductoCreadoDto();
+            productoCreadoDto.Id = producto.Id;
+            productoCreadoDto.FechaCreacion = producto.FechaRegistro;
+            productoCreadoDto.Descripcion = producto.Descripcion;
+            productoCreadoDto.Marca = producto.Marca;
+            productoCreadoDto.Estado = producto.Estado;
+            productoCreadoDto.Categoria = producto.Categoria;
+            productoCreadoDto.Codigo = producto.Codigo;
+
+
+
+            return Ok(productoCreadoDto);
+
+        } 
+    
+
+            // DELETE: api/Producto/5
+            [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProducto(int id)
         {
             var producto = await _context.Productos.FindAsync(id);
